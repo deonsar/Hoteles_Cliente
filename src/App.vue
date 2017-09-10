@@ -1,31 +1,58 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
-    <h1>{{ msg }}</h1>
-    <h2>Essential Links</h2>
-    <ul>
-      <li><a href="https://vuejs.org" target="_blank">Core Docs</a></li>
-      <li><a href="https://forum.vuejs.org" target="_blank">Forum</a></li>
-      <li><a href="https://gitter.im/vuejs/vue" target="_blank">Gitter Chat</a></li>
-      <li><a href="https://twitter.com/vuejs" target="_blank">Twitter</a></li>
-    </ul>
-    <h2>Ecosystem</h2>
-    <ul>
-      <li><a href="http://router.vuejs.org/" target="_blank">vue-router</a></li>
-      <li><a href="http://vuex.vuejs.org/" target="_blank">vuex</a></li>
-      <li><a href="http://vue-loader.vuejs.org/" target="_blank">vue-loader</a></li>
-      <li><a href="https://github.com/vuejs/awesome-vue" target="_blank">awesome-vue</a></li>
-    </ul>
+    <master-chooser></master-chooser>
+    <h1>{{msg}}</h1> 
+    <h2 v-show="opcion == 'hoteles'"><strong>{{ title.Hoteles }}</strong></h2>
+    <maestro-hoteles v-show="opcion == 'hoteles'"></maestro-hoteles>
+    <detalle-hoteles v-show="opcion == 'hoteles'"></detalle-hoteles>
+
+    <h2 v-show="opcion == 'reservas'"><strong>{{ title.Reservas }}</strong></h2>
+    <maestro-reservas v-show="opcion == 'reservas'"></maestro-reservas>
+    <detalle-reservas v-show="opcion == 'reservas'"></detalle-reservas>
+
+    
+    <infomessage style="clear:both"></infomessage>
   </div>
 </template>
 
 <script>
+import EventBus from './components/event-bus.js'
+import Chooser from './components/Chooser.vue'
+import MaestroHoteles from './components/Maestro-hoteles.vue'
+import DetalleHoteles from './components/Detalle-hoteles.vue'
+import MaestroReservas from './components/Maestro-reservas.vue'
+import DetalleReservas from './components/Detalle-reservas.vue'
+import InfoMessage from './components/InfoMessage.vue'
+
+
 export default {
   name: 'app',
+
+  components: {
+    'master-chooser' : Chooser,
+    'maestro-hoteles' : MaestroHoteles,
+    'detalle-hoteles': DetalleHoteles,    
+    'maestro-reservas' : MaestroReservas,
+    'detalle-reservas' : DetalleReservas,
+    'infomessage' : InfoMessage
+  },
+
+
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App'
+      title:{
+        Hoteles:"Hoteles",
+        Reservas:"Reservas"
+      },
+      msg: 'Welcome to Your Vue.js App',
+      opcion:"hoteles"
     }
+  },
+  
+  mounted: function(){
+    EventBus.$on('chooseOption', function(opcion) {
+      this.opcion = opcion;
+    }.bind(this));
   }
 }
 </script>
