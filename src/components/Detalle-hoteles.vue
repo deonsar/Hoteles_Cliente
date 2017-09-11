@@ -1,29 +1,54 @@
 <template>
-  <div class="w3-container w3-card-4" style="min-width:300px; display:inline-block; vertical-align:top">
+  <div class="w3-container w3-card-4" style="text-align: left; min-width:400px; display:inline-block; vertical-align:top">
     <div>
-      <h3 style="overflow: hidden; text-overflow: ellipsis; max-width:300px"><strong>Tarea: </strong>{{Tarea.Nombre}}</h3>
-      <label class="w3-text" for="nombre"> Nombre </label>
-      <textarea class="w3-input w3-border" rows="2" style="background: white; white-space: nowrap; overflow-x: auto; resize: none; text-overflow: ellipsis" type="string" name="nombre" value="Nombre" :disabled="!editing && !addingNew" v-model="Tarea.Nombre"></textarea>
+      <h3 style="text-align: center; overflow: hidden;"><strong> Datos Hotel </strong></h3>
+
+      <label class="w3-text" for="nombre"> Nombre: </label>
+      <input class="w3-input w3-border" style="background: white; overflow: hidden; text-overflow: ellipsis" type="text" 
+      :disabled="!editing && !addingNew" v-model="Hotel.Nombre">
       <br>
-      <label class="w3-text" for="desc"> Descripción </label>
-      <textarea class="w3-input w3-border" rows="3" style="background: white; resize: none; overflow: auto; text-overflow: ellipsis" type="string"
-      name="desc" value="Descripcion" :disabled="!editing && !addingNew" v-model="Tarea.Descripcion"></textarea>
+     
+      <label class="w3-text" for="direccion"> Dirección: </label>
+      <input class="w3-input w3-border" style="background: white; overflow: hidden; text-overflow: ellipsis" type="text" 
+      :disabled="!editing && !addingNew" v-model="Hotel.Direccion">
       <br>
-      <label class="w3-text" for="fecha"> Fecha </label>
-      <input class="w3-input w3-border" style="background: white; overflow: hidden; text-overflow: ellipsis" type="date" name="fecha" value="Fecha"
-      :disabled="!editing && !addingNew" v-model="Tarea.Fecha">
+
+      <label class="w3-text" for="codigoPostal"> Codigo Postal: </label>
+      <input class="w3-input w3-border" style="background: white; overflow: hidden; text-overflow: ellipsis" type="text" 
+      :disabled="!editing && !addingNew" v-model="Hotel.CodigoPostal">
       <br>
-      <label class="w3-text" for="complejidad" style="background: white"> Complejidad </label>
-      <select class="w3-select w3-border" name="complejidad" style="overflow: hidden; text-overflow: ellipsis"
-      value="Complejidad" :disabled="!editing && !addingNew" v-model="Tarea.Complejidad">
-        <option value="alta">Alta</option>
-        <option value="media">Media</option>
-        <option value="Baja">Baja</option>
-      </select>
+
+      <label class="w3-text" for="telefono"> Telefono </label>
+      <input class="w3-input w3-border" style="background: white; overflow: hidden; text-overflow: ellipsis" type="number" 
+      :disabled="!editing && !addingNew" v-model="Hotel.Telefono">
+      <br>
+
+      <label class="w3-text" for="direccion"> Precio: </label>
+      <input class="w3-input w3-border" style="background: white; overflow: hidden; text-overflow: ellipsis" type="number" 
+      :disabled="!editing && !addingNew" v-model="Hotel.PrecioBase">
+
+      <p class="clasificacion">
+          <input id="radio1" type="radio" name="estrellas" :disabled="!editing && !addingNew" v-model="Hotel.Puntuacion" value="5" :checked="Hotel.Puntuacion">
+          <label class="star" for="radio1">★</label>
+          
+          <input id="radio2" type="radio" name="estrellas" :disabled="!editing && !addingNew" v-model="Hotel.Puntuacion" value="4" :checked="Hotel.Puntuacion">
+          <label class="star" for="radio2">★</label>
+          
+          <input id="radio3" type="radio" name="estrellas" :disabled="!editing && !addingNew" v-model="Hotel.Puntuacion" value="3" :checked="Hotel.Puntuacion">
+          <label class="star" for="radio3">★</label>
+          
+          <input id="radio4" type="radio" name="estrellas" :disabled="!editing && !addingNew" v-model="Hotel.Puntuacion" value="2" :checked="Hotel.Puntuacion">
+          <label class="star" for="radio4">★</label>
+          
+          <input id="radio5" type="radio" name="estrellas" :disabled="!editing && !addingNew" v-model="Hotel.Puntuacion" value="1" :checked="Hotel.Puntuacion">
+          <label class="star" for="radio5">★</label>
+      </p>
+      <br>
+      
     </div>
 
     <br>
-
+    
     <div>
       <template v-if="!addingNew">
         <div style="float: left">
@@ -80,7 +105,7 @@ import AppIcon from './App-icon.vue'
 import appConfig from './config.js'
 import InfoMessage from './InfoMessage.vue'
 
-var httpURL = appConfig.URLTarea;
+var httpURL = appConfig.URLHoteles;
 var maxInt =  2147483647;
 
 export default {
@@ -92,17 +117,23 @@ export default {
   methods: {
     validateNew: function() {
       let mensaje ='';
-      if(this.Tarea.Nombre == '') {
-        mensaje = 'El Nombre de la tarea no puede estar vacío.';
+      if(this.Hotel.Nombre == '') {
+        mensaje = 'El nombre del hotel no puede estar vacío.';
         EventBus.$emit('showMessage', mensaje);
-      } else if(this.isNumeric(this.Tarea.Descripcion) || this.Tarea.Descripcion == '') {
-        mensaje = 'La Descripcion de la tarea no puede estar vacía.';
+      } else if(this.Hotel.Direccion == '') {
+        mensaje = 'La dirección no puede estar vacío.';
         EventBus.$emit('showMessage', mensaje);
-      } else if(this.isNumeric(this.Tarea.Fecha) || this.Tarea.Fecha == '') {
-        mensaje = 'La Fecha de la tarea no puede estar vacía, seleccione una fecha válida.';
+      } else if(!this.isInt(this.Hotel.CodigoPostal) || this.Hotel.CodigoPostal == '' || this.Hotel.CodigoPostal.length >5) {
+        mensaje = 'El código postal no puede estar vacío. Comprobar que el código postal contenga 5 digitos';
         EventBus.$emit('showMessage', mensaje);
-      } else if(!this.Tarea.Complejidad == 'Alta'|| !this.Tarea.Complejidad == 'Media' || !this.Tarea.Complejidad == 'Baja' || this.Tarea.Complejidad == '') {
-        mensaje = 'La Complejidad de la tarea no puede estar vacía';
+      } else if(!this.isInt(this.Hotel.Telefono) || this.Hotel.Telefono == '' ||  this.Hotel.Telefono.length >9) {
+        mensaje = 'El numero de telefono no puede estar vacío. Comprobar que el telefono contenga 9 digitos';
+        EventBus.$emit('showMessage', mensaje);
+      } else if(this.Hotel.Puntuacion == 0) {
+        mensaje = 'Seleccione la valoración del hotel.';
+        EventBus.$emit('showMessage', mensaje);
+      } else if(this.Hotel.PrecioBase <= 0 || !this.isNumeric(this.Hotel.PrecioBase)) {
+        mensaje = 'El precio base no puede ser 0 .';
         EventBus.$emit('showMessage', mensaje);
       } else {
         this.create();
@@ -110,8 +141,8 @@ export default {
     },
     validateIdUpdate: function() {
       let mensaje ='';
-      if(this.Tarea.Id =='' || this.Tarea.Id < 0) {
-        mensaje = 'Seleccione una Tarea de la lista.';
+      if(this.Hotel.Id =='' || this.Hotel.Id < 0) {
+        mensaje = 'Seleccione un hotel de la lista.';
         EventBus.$emit('showMessage', mensaje);
       } else {
         this.edit();
@@ -119,8 +150,8 @@ export default {
     },
     validateIdDelete: function() {
       let mensaje ='';
-      if(this.Tarea.Id =='' || this.Tarea.Id < 0) {
-        mensaje = 'Seleccione una Tarea de la lista.';
+      if(this.Hotel.Id =='' || this.Hotel.Id < 0) {
+        mensaje = 'Seleccione un hotel de la lista.';
         EventBus.$emit('showMessage', mensaje);
       } else {
         this.remove();
@@ -128,17 +159,23 @@ export default {
     },
     validateUpdate: function() {
       let mensaje ='';
-      if(this.Tarea.Nombre == '') {
-        mensaje = 'El Nombre de la tarea no puede estar vacío.';
+      if(this.Hotel.Nombre == '') {
+        mensaje = 'El nombre del hotel no puede estar vacío.';
         EventBus.$emit('showMessage', mensaje);
-      } else if(this.isNumeric(this.Tarea.Descripcion) || this.Tarea.Descripcion == '') {
-        mensaje = 'La Descripcion de la tarea no puede estar vacía.';
+      } else if(this.Hotel.Direccion == '') {
+        mensaje = 'La dirección no puede estar vacío.';
         EventBus.$emit('showMessage', mensaje);
-      } else if(this.isNumeric(this.Tarea.Fecha) || this.Tarea.Fecha == '') {
-        mensaje = 'La Fecha de la tarea no puede estar vacía, seleccione una fecha válida.';
+      } else if(!this.isInt(this.Hotel.CodigoPostal) || this.Hotel.CodigoPostal == '' || this.Hotel.CodigoPostal.length >5) {
+        mensaje = 'El código postal no puede estar vacío. Comprobar que el código postal contenga 5 digitos';
         EventBus.$emit('showMessage', mensaje);
-      } else if(!this.Tarea.Complejidad == 'Alta'|| !this.Tarea.Complejidad == 'Media' || !this.Tarea.Complejidad == 'Baja' || this.Tarea.Complejidad == '') {
-        mensaje = 'La Complejidad de la tarea no puede estar vacía';
+      } else if(!this.isInt(this.Hotel.Telefono) || this.Hotel.Telefono == '' ||  this.Hotel.Telefono.length >9) {
+        mensaje = 'El numero de telefono no puede estar vacío. Comprobar que el telefono contenga 9 digitos';
+        EventBus.$emit('showMessage', mensaje);
+      } else if(this.Hotel.Puntuacion == 0) {
+        mensaje = 'Seleccione la valoración del hotel.';
+        EventBus.$emit('showMessage', mensaje);
+      } else if(this.Hotel.PrecioBase <= 0 || !this.isNumeric(this.Hotel.PrecioBase)) {
+        mensaje = 'El precio base no puede ser 0 .';
         EventBus.$emit('showMessage', mensaje);
       } else {
         this.update();
@@ -151,44 +188,60 @@ export default {
       return n % 1 === 0;
     },
     editNew: function () {
-      this.TareaCopia.Nombre = this.Tarea.Nombre;
-      this.TareaCopia.Descripcion = this.Tarea.Descripcion;
-      this.TareaCopia.Fecha = this.Tarea.Fecha;
-      this.TareaCopia.Complejidad = this.Tarea.Complejidad;
+      this.HotelCopia.Nombre = this.Hotel.Nombre;
+      this.HotelCopia.Direccion = this.Hotel.Direccion;
+      this.HotelCopia.CodigoPostal = this.Hotel.CodigoPostal;
+      this.HotelCopia.Telefono = this.Hotel.Telefono;
+      this.HotelCopia.Puntuacion = this.Hotel.Puntuacion;
+      this.HotelCopia.PrecioBase = this.Hotel.PrecioBase;
 
-      this.Tarea.Nombre = '';
-      this.Tarea.Descripcion = '';
-      this.Tarea.Fecha = '';
-      this.Tarea.Complejidad = '';
+      this.Hotel.Nombre = '';
+      this.Hotel.Direccion = '';
+      this.Hotel.CodigoPostal = '';
+      this.Hotel.Telefono = '';
+      this.Hotel.Puntuacion = '';
+      this.Hotel.PrecioBase = '';
+
       this.addingNew = true;
     },
     discardNew: function () {
-      this.Tarea.Nombre = this.TareaCopia.Nombre;
-      this.Tarea.Descripcion = this.TareaCopia.Descripcion;
-      this.Tarea.Fecha = this.TareaCopia.Fecha;
-      this.Tarea.Complejidad = this.TareaCopia.Complejidad;
+      this.Hotel.Nombre = this.HotelCopia.Nombre;
+      this.Hotel.Direccion = this.HotelCopia.Direccion;
+      this.Hotel.CodigoPostal = this.HotelCopiaH.CodigoPostal;
+      this.Hotel.Telefono = this.HotelCopia.Telefono;
+      this.Hotel.Puntuacion = this.HotelCopia.Puntuacion;
+      this.Hotel.PrecioBase = this.HotelCopia.PrecioBase;
+
       this.addingNew = false;
     },
     edit: function () {
-       this.TareaCopia.Nombre = this.Tarea.Nombre;
-      this.TareaCopia.Descripcion = this.Tarea.Descripcion;
-      this.TareaCopia.Fecha = this.Tarea.Fecha;
-      this.TareaCopia.Complejidad = this.Tarea.Complejidad;
+      this.HotelCopia.Nombre = this.Hotel.Nombre;
+      this.HotelCopia.Direccion = this.Hotel.Direccion;
+      this.HotelCopia.CodigoPostal = this.Hotel.CodigoPostal;
+      this.HotelCopia.Telefono = this.Hotel.Telefono;
+      this.HotelCopia.Puntuacion = this.Hotel.Puntuacion;
+      this.HotelCopia.PrecioBase = this.Hotel.PrecioBase;
+
       this.editing = true;
     },
     discard: function () {
-      this.Tarea.Nombre = this.TareaCopia.Nombre;
-      this.Tarea.Descripcion = this.TareaCopia.Descripcion;
-      this.Tarea.Fecha = this.TareaCopia.Fecha;
-      this.Tarea.Complejidad = this.TareaCopia.Complejidad;
+      this.Hotel.Nombre = this.HotelCopia.Nombre;
+      this.Hotel.Direccion = this.HotelCopia.Direccion;
+      this.Hotel.CodigoPostal = this.HotelCopiaH.CodigoPostal;
+      this.Hotel.Telefono = this.HotelCopia.Telefono;
+      this.Hotel.Puntuacion = this.HotelCopia.Puntuacion;
+      this.Hotel.PrecioBase = this.HotelCopia.PrecioBase;
+
       this.editing = false;
     },
     cleanForm: function() {
-      this.Tarea.Nombre = '';
-      this.Tarea.Descripcion = '';
-      this.Tarea.Fecha = '';
-      this.Tarea.Complejidad = '';
-      this.Tarea.Id = '';
+      this.Hotel.Nombre = '';
+      this.Hotel.Direccion = '';
+      this.Hotel.CodigoPostal = '';
+      this.Hotel.Telefono = '';
+      this.Hotel.Puntuacion = '';
+      this.Hotel.PrecioBase = '';
+      this.Hotel,Id = '';
     },
     create: function () {
       var _this = this;
@@ -197,21 +250,23 @@ export default {
           url : httpURL,
           type: "POST",
           data: {
-            Nombre: this.Tarea.Nombre,
-            Descripcion: this.Tarea.Descripcion,
-            Fecha: this.Tarea.Fecha,
-            Complejidad: this.Tarea.Complejidad
+            Nombre: this.Hotel.Nombre,
+            Direccion: this.Hotel.Direccion,
+            CodigoPostal: this.Hotel.CodigoPostal,
+            Telefono: this.Hotel.Telefono,
+            Puntuacion: this.Hotel.Puntuacion,
+            PrecioBase: this.Hotel.PrecioBase
           }
 
         })
         .done(function(data) {
-          EventBus.$emit('updateListTarea');
-          let mensaje ='Tarea añadida con éxito.';
+          EventBus.$emit('updateListHotel');
+          let mensaje ='Hotel añadido con éxito.';
           EventBus.$emit('showMessage', mensaje);
           _this.addingNew = false;
         })
         .fail(function(data) {
-          let mensaje = 'No se pudo crear la Tarea. Revise su conexión a Internet.';
+          let mensaje = 'No se puede crear el hotel. Revise su conexión a Internet.';
           EventBus.$emit('showMessage', mensaje);
         });
       },
@@ -219,25 +274,27 @@ export default {
         var _this = this;
         $.ajax(
           {
-            url : httpURL + this.Tarea.Id,
+            url : httpURL + this.Hotel.Id,
             type: "PUT",
             data: {
-              Id: this.Tarea.Id,
-              Nombre: this.Tarea.Nombre,
-              Descripcion: this.Tarea.Descripcion,
-              Fecha: this.Tarea.Fecha,
-              Complejidad: this.Tarea.Complejidad
+              Id: this.Hotel.Id,
+              Nombre: this.Hotel.Nombre,
+              Direccion: this.Hotel.Direccion,
+              CodigoPostal: this.Hotel.CodigoPostal,
+              Telefono: this.Hotel.Telefono,
+              Puntuacion: this.Hotel.Puntuacion,
+              PrecioBase: this.Hotel.PrecioBase
             }
           })
           .done(function(data) {
-            EventBus.$emit('updateListTarea');
-            let mensaje ='Tarea actualizada con éxito.';
+            EventBus.$emit('updateListHotel');
+            let mensaje ='Hotel actualizado con éxito.';
             EventBus.$emit('showMessage', mensaje);
             _this.cleanForm();
             _this.editing = false;
           })
           .fail(function(data) {
-            let mensaje = 'No se pudo actualizar la Tarea. Revise su conexión a Internet.';
+            let mensaje = 'No se pudo actualizar el hotel. Revise su conexión a Internet.';
             EventBus.$emit('showMessage', mensaje);
           });
         },
@@ -245,19 +302,19 @@ export default {
           var _this = this;
           $.ajax(
             {
-              url : httpURL + this.Tarea.Id,
+              url : httpURL + this.Hotel.Id,
               type: "DELETE",
-              data: {Id: this.Tarea.Id}
+              data: {Id: this.Hotel.Id}
             })
             .done(function(data) {
-              EventBus.$emit('updateListTarea');
+              EventBus.$emit('updateListHotel');
               _this.cleanForm();
-              let mensaje ='Tarea eliminada con éxito.';
+              let mensaje ='Hotel eliminado con éxito.';
               EventBus.$emit('showMessage', mensaje);
               _this.editing = false;
             })
             .fail(function(data) {
-              let mensaje = 'No se pudo eliminar la Tarea. Revise su conexión a Internet.';
+              let mensaje = 'No se pudo eliminar el hotel. Revise su conexión a Internet.';
               EventBus.$emit('showMessage', mensaje);
             });
           },
@@ -270,10 +327,10 @@ export default {
               })
               .done(function(data) {
 
-                _this.Tarea = data;
+                _this.Hotel = data;
               })
               .fail(function(data) {
-                let mensaje = 'No se pudo cargar la Tarea. Revise su conexión a Internet.';
+                let mensaje = 'No se puede cargar los datos. Revise su conexión a Internet.';
                 EventBus.$emit('showMessage', mensaje);
               });
             },
@@ -284,30 +341,67 @@ export default {
               editing: false,
               addingNew: false,
               complejidad: { Alta: 'Alta', Media: 'Media', Baja: 'Baja'},
-              Tarea: {
+              Hotel: {
                 Id: '',
                 Nombre: '',
-                Descripcion: '',
-                Fecha: '',
-                Complejidad: ''
+                Direccion: '',
+                CodigoPostal: '',
+                Telefono: '',
+                Puntuacion: '',
+                PrecioBase: ''
               },
-              TareaCopia: {
+              HotelCopia: {
                 Id: '',
                 Nombre: '',
-                Descripcion: '',
-                Fecha: '',
-                Complejidad: ''
+                Direccion: '',
+                CodigoPostal: '',
+                Telefono: '',
+                Puntuacion: '',
+                PrecioBase: ''
               }
             }
           },
 
           mounted: function() {
-            EventBus.$on('tareaSelected', function(id) {
+            EventBus.$on('hotelSelected', function(id) {
               this.load(id);
               this.editing = false;
               this.addingNew = false;
             }.bind(this));
           }
-        }
+  }
 
-        </script>
+</script>
+
+<style lang="scss">
+
+input[type="radio"] {
+  display: none;
+}
+
+
+
+p {
+  text-align: center;
+}
+
+
+.clasificacion {
+  direction: rtl;
+  unicode-bidi: bidi-override;
+}
+.star{
+  font-size: 30px;
+  color: grey;
+
+}
+
+label:hover,
+label:hover ~ .star {
+  color: orange;
+}
+
+input[type="radio"]:checked ~ label {
+  color: orange;
+}
+</style>

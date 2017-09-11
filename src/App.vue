@@ -3,7 +3,7 @@
     <master-chooser></master-chooser>
     <h1>{{msg}}</h1> 
     <h2 v-show="opcion == 'hoteles'"><strong>{{ title.Hoteles }}</strong></h2>
-    <maestro-hoteles v-show="opcion == 'hoteles'"></maestro-hoteles>
+    <maestro-hoteles v-show="opcion == 'hoteles'"></maestro-hoteles>    
     <detalle-hoteles v-show="opcion == 'hoteles'"></detalle-hoteles>
 
     <h2 v-show="opcion == 'reservas'"><strong>{{ title.Reservas }}</strong></h2>
@@ -71,15 +71,7 @@ h1, h2 {
   font-weight: normal;
 }
 
-ul {
-  list-style-type: none;
-  padding: 0;
-}
 
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
 
 a {
   color: #42b983;
