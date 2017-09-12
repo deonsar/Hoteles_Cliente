@@ -5,7 +5,7 @@
       <li style="overflow: hidden; text-overflow: ellipsis" class="w3-hover-blue" v-for="Reserva in Reservas" @click="reservaSelected(Reserva.Id)"> 
         <span class="glyphicon glyphicon-eye-open"></span>
         &nbsp;
-        {{Reserva.Hotel}}</li>
+        {{Reserva.Nombre}}</li>
     </ul>
   </div>
 </template>

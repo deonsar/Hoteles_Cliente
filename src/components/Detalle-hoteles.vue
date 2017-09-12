@@ -123,10 +123,10 @@ export default {
       } else if(this.Hotel.Direccion == '') {
         mensaje = 'La dirección no puede estar vacío.';
         EventBus.$emit('showMessage', mensaje);
-      } else if(!this.isInt(this.Hotel.CodigoPostal) || this.Hotel.CodigoPostal == '' || this.Hotel.CodigoPostal.length >5) {
+      } else if(!this.isInt(this.Hotel.CodigoPostal) || this.Hotel.CodigoPostal == '' || this.Hotel.CodigoPostal.length !== 6) {
         mensaje = 'El código postal no puede estar vacío. Comprobar que el código postal contenga 5 digitos';
         EventBus.$emit('showMessage', mensaje);
-      } else if(!this.isInt(this.Hotel.Telefono) || this.Hotel.Telefono == '' ||  this.Hotel.Telefono.length >9) {
+      } else if(!this.isInt(this.Hotel.Telefono) || this.Hotel.Telefono == '' ||  this.Hotel.Telefono.length !== 9) {
         mensaje = 'El numero de telefono no puede estar vacío. Comprobar que el telefono contenga 9 digitos';
         EventBus.$emit('showMessage', mensaje);
       } else if(this.Hotel.Puntuacion == 0) {
@@ -158,17 +158,18 @@ export default {
       }
     },
     validateUpdate: function() {
-      let mensaje ='';
+      let mensaje = '';     
+
       if(this.Hotel.Nombre == '') {
         mensaje = 'El nombre del hotel no puede estar vacío.';
         EventBus.$emit('showMessage', mensaje);
       } else if(this.Hotel.Direccion == '') {
         mensaje = 'La dirección no puede estar vacío.';
         EventBus.$emit('showMessage', mensaje);
-      } else if(!this.isInt(this.Hotel.CodigoPostal) || this.Hotel.CodigoPostal == '' || this.Hotel.CodigoPostal.length >5) {
+      } else if(!this.isInt(this.Hotel.CodigoPostal) || this.Hotel.CodigoPostal == '' || this.Hotel.CodigoPostal.length !== 6) {
         mensaje = 'El código postal no puede estar vacío. Comprobar que el código postal contenga 5 digitos';
         EventBus.$emit('showMessage', mensaje);
-      } else if(!this.isInt(this.Hotel.Telefono) || this.Hotel.Telefono == '' ||  this.Hotel.Telefono.length >9) {
+      } else if(!this.isInt(this.Hotel.Telefono) || this.Hotel.Telefono == '' ||  this.Hotel.Telefono.length !== 9) {
         mensaje = 'El numero de telefono no puede estar vacío. Comprobar que el telefono contenga 9 digitos';
         EventBus.$emit('showMessage', mensaje);
       } else if(this.Hotel.Puntuacion == 0) {
@@ -390,14 +391,15 @@ p {
   direction: rtl;
   unicode-bidi: bidi-override;
 }
+
 .star{
   font-size: 30px;
   color: grey;
 
 }
 
-label:hover,
-label:hover ~ .star {
+
+:hover ~ .star {
   color: orange;
 }
 
