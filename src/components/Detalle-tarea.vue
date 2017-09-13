@@ -1,5 +1,5 @@
 <template>
-  <div class="w3-container w3-card-4" style="min-width:300px; text-align: left;display:inline-block; vertical-align:top">
+  <div class="w3-container w3-card-4" style="min-width:300px; display:inline-block; vertical-align:top">
     <div>
       <h3 style="overflow: hidden; text-overflow: ellipsis; max-width:300px"><strong>Tarea: </strong>{{Tarea.Nombre}}</h3>
       <label class="w3-text" for="nombre"> Nombre </label>

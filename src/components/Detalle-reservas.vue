@@ -1,4 +1,7 @@
 <template>
+
+
+	
 	<div  class="w3-container w3-card-4" style="min-width:500px; text-align: left; max-width:300px; display:inline-block; vertical-align:top">
 		<div>
 		  <h3 style="overflow: hidden; max-width:400px"><strong> Gestion Reserva </strong></h3>
@@ -30,9 +33,7 @@
 
 		  <label class="w3-text" for="hoteles" style="background: white"> Hoteles </label>
 		  <select class="w3-select w3-border" name="hoteles" style="overflow: hidden; text-overflow: ellipsis" value="Hoteles" :disabled="!editing && !addingNew" v-model="Reserva.Hoteles">
-		    <option value="alta" selected="selected" >Alta</option>
-		    <option value="media">Media</option>
-		    <option value="Baja">Baja</option>
+		    <option v-for="item in HotelesSelect" :value="item.Nombre"> {{item.Nombre}}  </option>
 		  </select>
 
 		  <label class="w3-text" for="habitaciones" style="background: white"> Habitaciones </label>
@@ -51,7 +52,7 @@
 		    <option value="3">3</option>
 		    <option value="4">4</option>
 		    <option value="5">5</option>
-		    <option value="6">4</option>
+		    <option value="6">6</option>
 		  </select>
 
 		  <label class="w3-text" for="ninos" style="background: white"> Niños </label>
@@ -179,7 +180,7 @@
 	  	validateIdUpdate: function() {
 	  	  let mensaje ='';
 	  	  if(this.Reserva.Id =='' || this.Reserva.Id < 0) {
-	  	    mensaje = 'Seleccione un perfil de la lista.';
+	  	    mensaje = 'Selecciona una reserva de la lista.';
 	  	    EventBus.$emit('showMessage', mensaje);
 	  	  } else {
 	  	    this.edit();
@@ -188,7 +189,7 @@
 	  	validateIdDelete: function() {
 	  	  let mensaje ='';
 	  	  if(this.Reserva.Id =='' || this.Reserva.Id < 0) {
-	  	    mensaje = 'Seleccione una película de la lista.';
+	  	    mensaje = 'Selecciona una reserva de la lista.';
 	  	    EventBus.$emit('showMessage', mensaje);
 	  	  } else {
 	  	    this.remove();
@@ -240,6 +241,7 @@
 	  	  return n % 1 === 0;
 	  	},
 	  	editNew: function () {
+
 	  	  this.ReservaCopia.Nombre = this.Reserva.Nombre;
 	  	  this.ReservaCopia.Apellido = this.Reserva.Apellido;
 	  	  this.ReservaCopia.Telefono = this.Reserva.Telefono;
@@ -277,6 +279,7 @@
 	  	  this.Reserva.Adultos= this.ReservaCopia.Adultos;
 	  	  this.Reserva.Ninos= this.ReservaCopia.Ninos;
 	  	  this.Reserva.PrecioTotal= this.ReservaCopia.PrecioTotal;
+
 	  	  this.addingNew = false;
 	  	},
 	  	edit: function () {
@@ -407,26 +410,26 @@
               EventBus.$emit('showMessage', mensaje);
             });
         },
-        load: function(id){
-          var _this = this;
-          $.ajax(
-            {
-              url : httpURL + id,
-              type: "GET",
-            })
-            .done(function(data) {
-              _this.Reserva = data;
-            })
-            .fail(function(data) {
-              let mensaje = 'No se pudo cargar la reserva. Revise su conexión a Internet.';
-              EventBus.$emit('showMessage', mensaje);
-            });
+          load: function(id){
+		      var _this = this;
+		      $.ajax(
+		        {
+		          url : httpURL + id,
+		          type: "GET",
+		        })
+		        .done(function(data) {
+		          _this.Reserva = data;
+		        })
+		        .fail(function(data) {
+		          let mensaje = 'No se pudo cargar la reserva. Revise su conexión a Internet.';
+		          EventBus.$emit('showMessage', mensaje);
+		        });
           },
         },
         data: function () {
           return {
             editing: false,
-            addingNew: false,
+            addingNew: false,            
             HotelesSelect: {},
             Reserva: {
               Id: '',
@@ -464,6 +467,11 @@
             this.editing = false;
             this.addingNew = false;
           }.bind(this));
+
+          EventBus.$on('objHoteles', function(obj) {
+            this.HotelesSelect = obj;
+          }.bind(this));
+
         }
 	  
 	}

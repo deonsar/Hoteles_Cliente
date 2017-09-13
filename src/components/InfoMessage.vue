@@ -2,7 +2,7 @@
   <div  id="myModal" class="modal w3-container " style="display:inline-block;" v-if="show">
      
     <div class="modal-content  w3-animate-top ">
-        <span class="close" onclick="document.getElementById('myModal').style.display='none'">&times;</span>
+        <span class="close" @click="show = false">&times;</span>
         <h4 style="text-align: center; vertical-align: middle; margin-top:40px;"> {{mensaje}} </h4>
     </div>
 
@@ -26,15 +26,12 @@ export default {
       this.mensaje = message;
       this.show = true;
     },
-    hideMessage: function(){
-      this.show = false;
-    }
   },
 
   mounted: function() {
     EventBus.$on('showMessage', function(message) {
-      this.showMessage(message);
-      
+    this.showMessage(message);
+    
     }.bind(this));
   }
 

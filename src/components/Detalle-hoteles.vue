@@ -1,11 +1,12 @@
 <template>
+
   <div class="w3-container w3-card-4" style="text-align: left; min-width:400px; display:inline-block; vertical-align:top">
     <div>
       <h3 style="text-align: center; overflow: hidden;"><strong> Datos Hotel </strong></h3>
 
       <label class="w3-text" for="nombre"> Nombre: </label>
       <input class="w3-input w3-border" style="background: white; overflow: hidden; text-overflow: ellipsis" type="text" 
-      :disabled="!editing && !addingNew" v-model="Hotel.Nombre">
+       v-model="Hotel.Nombre">
       <br>
      
       <label class="w3-text" for="direccion"> Dirección: </label>
@@ -14,7 +15,7 @@
       <br>
 
       <label class="w3-text" for="codigoPostal"> Codigo Postal: </label>
-      <input class="w3-input w3-border" style="background: white; overflow: hidden; text-overflow: ellipsis" type="text" 
+      <input class="w3-input w3-border" style="background: white; overflow: hidden; text-overflow: ellipsis" type="number" 
       :disabled="!editing && !addingNew" v-model="Hotel.CodigoPostal">
       <br>
 
@@ -27,7 +28,7 @@
       <input class="w3-input w3-border" style="background: white; overflow: hidden; text-overflow: ellipsis" type="number" 
       :disabled="!editing && !addingNew" v-model="Hotel.PrecioBase">
 
-      <p class="clasificacion">
+      <p class="clasificacion"  >
           <input id="radio1" type="radio" name="estrellas" :disabled="!editing && !addingNew" v-model="Hotel.Puntuacion" value="5" :checked="Hotel.Puntuacion">
           <label class="star" for="radio1">★</label>
           
@@ -117,13 +118,14 @@ export default {
   methods: {
     validateNew: function() {
       let mensaje ='';
+      var codigoPostal = this.Hotel.CodigoPostal;
       if(this.Hotel.Nombre == '') {
         mensaje = 'El nombre del hotel no puede estar vacío.';
         EventBus.$emit('showMessage', mensaje);
       } else if(this.Hotel.Direccion == '') {
         mensaje = 'La dirección no puede estar vacío.';
         EventBus.$emit('showMessage', mensaje);
-      } else if(!this.isInt(this.Hotel.CodigoPostal) || this.Hotel.CodigoPostal == '' || this.Hotel.CodigoPostal.length !== 6) {
+      } else if(!this.isInt(this.Hotel.CodigoPostal) || this.Hotel.CodigoPostal == '' || codigoPostal.toString().length !== 5) {
         mensaje = 'El código postal no puede estar vacío. Comprobar que el código postal contenga 5 digitos';
         EventBus.$emit('showMessage', mensaje);
       } else if(!this.isInt(this.Hotel.Telefono) || this.Hotel.Telefono == '' ||  this.Hotel.Telefono.length !== 9) {
@@ -158,15 +160,15 @@ export default {
       }
     },
     validateUpdate: function() {
-      let mensaje = '';     
-
+      let mensaje ='';
+      var codigoPostal = this.Hotel.CodigoPostal;
       if(this.Hotel.Nombre == '') {
         mensaje = 'El nombre del hotel no puede estar vacío.';
         EventBus.$emit('showMessage', mensaje);
       } else if(this.Hotel.Direccion == '') {
         mensaje = 'La dirección no puede estar vacío.';
         EventBus.$emit('showMessage', mensaje);
-      } else if(!this.isInt(this.Hotel.CodigoPostal) || this.Hotel.CodigoPostal == '' || this.Hotel.CodigoPostal.length !== 6) {
+      } else if(!this.isInt(this.Hotel.CodigoPostal) || this.Hotel.CodigoPostal == '' || codigoPostal.toString().length !== 5) {
         mensaje = 'El código postal no puede estar vacío. Comprobar que el código postal contenga 5 digitos';
         EventBus.$emit('showMessage', mensaje);
       } else if(!this.isInt(this.Hotel.Telefono) || this.Hotel.Telefono == '' ||  this.Hotel.Telefono.length !== 9) {
@@ -181,6 +183,7 @@ export default {
       } else {
         this.update();
       }
+      
     },
     isNumeric: function(n) {
       return !isNaN(parseFloat(n)) && isFinite(n);
@@ -208,7 +211,7 @@ export default {
     discardNew: function () {
       this.Hotel.Nombre = this.HotelCopia.Nombre;
       this.Hotel.Direccion = this.HotelCopia.Direccion;
-      this.Hotel.CodigoPostal = this.HotelCopiaH.CodigoPostal;
+      this.Hotel.CodigoPostal = this.HotelCopia.CodigoPostal;
       this.Hotel.Telefono = this.HotelCopia.Telefono;
       this.Hotel.Puntuacion = this.HotelCopia.Puntuacion;
       this.Hotel.PrecioBase = this.HotelCopia.PrecioBase;
@@ -228,7 +231,7 @@ export default {
     discard: function () {
       this.Hotel.Nombre = this.HotelCopia.Nombre;
       this.Hotel.Direccion = this.HotelCopia.Direccion;
-      this.Hotel.CodigoPostal = this.HotelCopiaH.CodigoPostal;
+      this.Hotel.CodigoPostal = this.HotelCopia.CodigoPostal;
       this.Hotel.Telefono = this.HotelCopia.Telefono;
       this.Hotel.Puntuacion = this.HotelCopia.Puntuacion;
       this.Hotel.PrecioBase = this.HotelCopia.PrecioBase;
@@ -242,7 +245,7 @@ export default {
       this.Hotel.Telefono = '';
       this.Hotel.Puntuacion = '';
       this.Hotel.PrecioBase = '';
-      this.Hotel,Id = '';
+      this.Hotel.Id = '';
     },
     create: function () {
       var _this = this;
@@ -340,7 +343,7 @@ export default {
           data: function () {
             return {
               editing: false,
-              addingNew: false,
+              addingNew: false,              
               complejidad: { Alta: 'Alta', Media: 'Media', Baja: 'Baja'},
               Hotel: {
                 Id: '',
@@ -380,12 +383,9 @@ input[type="radio"] {
   display: none;
 }
 
-
-
 p {
   text-align: center;
 }
-
 
 .clasificacion {
   direction: rtl;
@@ -398,12 +398,8 @@ p {
 
 }
 
-
 :hover ~ .star {
   color: orange;
 }
 
-input[type="radio"]:checked ~ label {
-  color: orange;
-}
 </style>
