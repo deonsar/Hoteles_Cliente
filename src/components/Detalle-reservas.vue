@@ -1,73 +1,113 @@
 <template>
 
-
-	
-	<div  class="w3-container w3-card-4" style="min-width:500px; text-align: left; max-width:300px; display:inline-block; vertical-align:top">
+	<div style="min-width:500px; text-align: left;  display:inline-block; vertical-align:top">
 		<div>
-		  <h3 style="overflow: hidden; max-width:400px"><strong> Gestion Reserva </strong></h3>
+		  <h2 style="overflow: hidden; text-align:center"><strong> Gestion Reserva </strong></h2>
 
-		  <label class="w3-text" for="nombre"> Nombre: </label>
-		  <input class="w3-input w3-border" style="background: white; overflow: hidden; text-overflow: ellipsis" :disabled="!editing && !addingNew" v-model="Reserva.Nombre">
 		  <br>
 
-		  <label class="w3-text" for="apellido"> Apellidos: </label>
-		  <input class="w3-input w3-border" style="background: white; overflow: hidden; text-overflow: ellipsis" :disabled="!editing && !addingNew" v-model="Reserva.Apellido">
-		  <br>
-
-		  <label class="w3-text" for="telefono"> Telefono </label>
-		  <input class="w3-input w3-border" style="background: white; overflow: hidden; text-overflow: ellipsis" type="number" 
-		  :disabled="!editing && !addingNew" v-model="Reserva.Telefono">
-		  <br>
-
-		  <label class="w3-text" for="email"> Email </label>
-		  <input class="w3-input w3-border" style="background: white; overflow: hidden; text-overflow: ellipsis" :disabled="!editing && !addingNew" v-model="Reserva.Email">
-		  <br>
-		  
-		  <label class="w3-text" for="fechaSalida"> FechaSalida </label>
-	      <input class="w3-input w3-border" style="background: white; overflow: hidden; text-overflow: ellipsis" type="date" :disabled="!editing && !addingNew" v-model="Reserva.FechaSalida">		  
-		  <br>
-
-		  <label class="w3-text" for="fecha"> FechaLlegada </label>
-		  <input class="w3-input w3-border" style="background: white; overflow: hidden; text-overflow: ellipsis" type="date" :disabled="!editing && !addingNew" v-model="Reserva.FechaLlegada">
-		  <br>
-
-		  <label class="w3-text" for="hoteles" style="background: white"> Hoteles </label>
+		  <label class="w3-text" for="hoteles" style="font-size: 20px;background: white"> <strong>Elegir Hotel </strong></label>
 		  <select class="w3-select w3-border" name="hoteles" style="overflow: hidden; text-overflow: ellipsis" value="Hoteles" :disabled="!editing && !addingNew" v-model="Reserva.Hoteles">
-		    <option v-for="item in HotelesSelect" :value="item.Nombre"> {{item.Nombre}}  </option>
+		    <option v-for="item in HotelesSelect" :value="item.Nombre"> Hotel: {{item.Nombre}}  
+		     -- Direccion {{item.Direccion}}</option>
 		  </select>
 
-		  <label class="w3-text" for="habitaciones" style="background: white"> Habitaciones </label>
-		  <select class="w3-select w3-border" name="habitaciones" style="overflow: hidden; text-overflow: ellipsis" value="Habitaciones" :disabled="!editing && !addingNew" v-model="Reserva.Habitaciones">
-		    <option value="1" selected="selected">1</option>
-		    <option value="2">2</option>
-		    <option value="3">3</option>
-		    <option value="4">4</option>
-		  </select>
+		  <br><br>
 
-		  <label class="w3-text" for="adultos" style="background: white"> Adultos </label>
-		  <select class="w3-select w3-border" name="adultos" style="overflow: hidden; text-overflow: ellipsis" value="Adultos" :disabled="!editing && !addingNew" v-model="Reserva.Adultos">
-		  	<option value="0" selected="selected">0</option>
-		    <option value="1">1</option>
-		    <option value="2">2</option>
-		    <option value="3">3</option>
-		    <option value="4">4</option>
-		    <option value="5">5</option>
-		    <option value="6">6</option>
-		  </select>
+		  <ul class="ul-Usuario">
+		  	<li class="usuario">
 
-		  <label class="w3-text" for="ninos" style="background: white"> Niños </label>
-		  <select class="w3-select w3-border" name="ninos" style="overflow: hidden; text-overflow: ellipsis" value="Ninos" :disabled="!editing && !addingNew" v-model="Reserva.Ninos">
-		    <option value="0" selected="selected">0</option>
-		    <option value="1">1</option>
-		    <option value="2">2</option>
-		    <option value="3">3</option>
-		    <option value="4">4</option>
-		  </select>
+			  <label class="w3-text " for="nombre"> Nombre: </label>
+			  <br>
+			  <input class=" w3-border campos" style="width:95%; background: white; overflow: hidden; text-overflow: ellipsis" :disabled="!editing && !addingNew" v-model="Reserva.Nombre">
 
-		  <label class="w3-text" for="PrecioTotal"> Precio Total </label>
-		  <input class="w3-input w3-border" style="background: white; overflow: hidden; text-overflow: ellipsis" :disabled="!editing && !addingNew" v-model="Reserva.PrecioTotal">
-		  <br>
+		  	</li>
+
+		  	<li class="usuario">
+			  <label class="w3-text" for="apellido"> Apellidos: </label>
+			  <br>
+			  <input class="w3-border campos" style="width:95%; background: white; overflow: hidden; text-overflow: ellipsis" :disabled="!editing && !addingNew" v-model="Reserva.Apellido">
+		  	</li>
+
+		  </ul>
+
+		  <ul class="ul-Usuario">
+
+		  	<li class="usuario" >
+			  <label class="w3-text" for="email"> Email </label>
+			  <br>
+			  <input class="w3-input w3-border" style="width:95%; background: white; overflow: hidden; text-overflow: ellipsis" :disabled="!editing && !addingNew" v-model="Reserva.Email">
+		  	</li>
+
+		  	<li class="usuario">
+			  <label class="w3-text" for="telefono"> Telefono </label>
+			  <br>
+			  <input class="w3-input w3-border" style="width:87%;background: white; overflow: hidden; text-overflow: ellipsis" type="number" 
+			  :disabled="!editing && !addingNew" v-model="Reserva.Telefono">
+		  	</li>
+
+		  	
+		  </ul>
 		  
+		  <ul class="ul-Usuario">
+		  
+			<li class="usuario">
+
+			  <label class="w3-text" for="fechaSalida"> FechaSalida </label>
+			  <br>
+		      <input class="w3-input w3-border" style="width:95%; background: white; overflow: hidden; text-overflow: ellipsis" type="date" :disabled="!editing && !addingNew" v-model="Reserva.FechaSalida">		  
+		  
+		  	</li>
+
+		  	<li class="usuario">
+			  <label class="w3-text" for="fecha"> FechaLlegada </label>
+			  <input class="w3-input w3-border" style="width:95%; background: white; overflow: hidden; text-overflow: ellipsis" type="date" :disabled="!editing && !addingNew" v-model="Reserva.FechaLlegada">
+		  	</li>
+		  </ul>		  
+
+		  <br>
+
+
+		  <ul class="ul-personas">
+
+		  <li class="personas">
+			  <label class="w3-text" for="habitaciones" style="background: white"> Habitaciones </label>
+			  <select class="w3-select w3-border" name="habitaciones" style="overflow: hidden; text-overflow: ellipsis" value="Habitaciones" :disabled="!editing && !addingNew" v-model="Reserva.Habitaciones">
+			    <option value="1" selected="selected">1</option>
+			    <option value="2">2</option>
+			    <option value="3">3</option>
+			    <option value="4">4</option>
+			  </select>
+		  </li>
+
+		  <li class="personas">
+			  <label class="w3-text" for="adultos" style="background: white"> Adultos </label>
+			  <select class="w3-select w3-border" name="adultos" style="overflow: hidden; text-overflow: ellipsis" value="Adultos" :disabled="!editing && !addingNew" v-model="Reserva.Adultos">
+			  	<option value="0" selected="selected">0</option>
+			    <option value="1">1</option>
+			    <option value="2">2</option>
+			    <option value="3">3</option>
+			    <option value="4">4</option>
+			    <option value="5">5</option>
+			    <option value="6">6</option>
+			  </select>
+		  </li>
+
+		  <li class="personas">
+
+			  <label class="w3-text" for="ninos" style="background: white"> Niños </label>
+			  <select class="w3-select w3-border" name="ninos" style="overflow: hidden; text-overflow: ellipsis" value="Ninos" :disabled="!editing && !addingNew" v-model="Reserva.Ninos">
+			    <option value="0" selected="selected">0</option>
+			    <option value="1">1</option>
+			    <option value="2">2</option>
+			    <option value="3">3</option>
+			    <option value="4">4</option>
+			  </select>
+
+		  </li>
+
+		  </ul>		
+		  <br>	  
 		</div>
 
 		<br>
@@ -76,17 +116,17 @@
 			<template v-if="!addingNew">
 			  <div style="float: left">
 			    <button type="button" class="btn btn-default btn-sm" title="Nuevo" @click="editNew" :disabled="editing">
-			      <app-icon img="plus"></app-icon>
+			      <app-icon img="plus"> </app-icon> Agregar Reserva 
 			    </button>
 			  </div>
 			</template>
 			<template v-else>
 			  <div style="float: left">
 			    <button type="button" class="btn btn-default btn-sm" title="Confirmar" @click="validateNew">
-			      <app-icon img="ok"></app-icon>
+			      <app-icon img="ok" style="color: green"></app-icon> Aceptar
 			    </button>
 			    <button type="button" class="btn btn-default btn-sm" title="Descartar" @click="discardNew">
-			      <app-icon img="remove"></app-icon>
+			      <app-icon img="remove" style="color: red"></app-icon> Cancelar
 			    </button>
 			  </div>
 			</template>
@@ -94,20 +134,20 @@
 			<template v-if="!editing">
 		        <div style="float: right">
 		          <button type="button" class="btn btn-default btn-sm" title="Editar" @click="validateIdUpdate" :disabled="addingNew">
-		            <app-icon img="edit"></app-icon>
+		            <app-icon img="edit" ></app-icon> Editar Reserva
 		          </button>
 		          <button type="button" class="btn btn-default btn-sm" title="Eliminar" @click="validateIdDelete" :disabled="addingNew">
-		            <app-icon img="trash"></app-icon>
+		            <app-icon img="trash"></app-icon> Eliminar Reserva
 		          </button>
 		        </div>
       		</template>
 			<template v-else>
 			  <div style="float: right">
 			    <button type="button" class="btn btn-default btn-sm" title="Confirmar" @click="validateUpdate">
-			      <app-icon img="ok"></app-icon>
+			      <app-icon img="ok" style="color: green"></app-icon> Aceptar
 			    </button>
 			    <button type="button" class="btn btn-default btn-sm" title="Descartar" @click="discard">
-			      <app-icon img="remove"></app-icon>
+			      <app-icon img="remove" style="color: red"></app-icon> Cancelar
 			    </button>
 			  </div>
 			</template>
@@ -252,8 +292,7 @@
 	  	  this.ReservaCopia.Habitaciones= this.Reserva.Habitaciones;
 	  	  this.ReservaCopia.Adultos= this.Reserva.Adultos;
 	  	  this.ReservaCopia.Ninos= this.Reserva.Ninos;
-	  	  this.ReservaCopia.PrecioTotal= this.Reserva.PrecioTotal;
-
+	  	  
 	  	  this.Reserva.Nombre = '';
 	  	  this.Reserva.Apellido = '';
 	  	  this.Reserva.Telefono = '';
@@ -264,7 +303,7 @@
 	  	  this.Reserva.Habitaciones = '';
 	  	  this.Reserva.Adultos = '';
 	  	  this.Reserva.Ninos = '';
-	  	  this.Reserva.PrecioTotal = '';
+	  	
 	  	  this.addingNew = true;
 	  	},
 	  	discardNew: function () {
@@ -277,8 +316,7 @@
 	  	  this.Reserva.Hoteles= this.ReservaCopia.Hoteles;
 	  	  this.Reserva.Habitaciones= this.ReservaCopia.Habitaciones;
 	  	  this.Reserva.Adultos= this.ReservaCopia.Adultos;
-	  	  this.Reserva.Ninos= this.ReservaCopia.Ninos;
-	  	  this.Reserva.PrecioTotal= this.ReservaCopia.PrecioTotal;
+	  	  this.Reserva.Ninos= this.ReservaCopia.Ninos;	  	 
 
 	  	  this.addingNew = false;
 	  	},
@@ -293,7 +331,7 @@
 	  	  this.ReservaCopia.Habitaciones= this.Reserva.Habitaciones;
 	  	  this.ReservaCopia.Adultos= this.Reserva.Adultos;
 	  	  this.ReservaCopia.Ninos= this.Reserva.Ninos;
-	  	  this.ReservaCopia.PrecioTotal= this.Reserva.PrecioTotal;
+
 	  	  this.editing = true;
 	  	},
 	  	discard: function () {
@@ -306,8 +344,7 @@
 	  	  this.Reserva.Hoteles= this.ReservaCopia.Hoteles;
 	  	  this.Reserva.Habitaciones= this.ReservaCopia.Habitaciones;
 	  	  this.Reserva.Adultos= this.ReservaCopia.Adultos;
-	  	  this.Reserva.Ninos= this.ReservaCopia.Ninos;
-	  	  this.Reserva.PrecioTotal= this.ReservaCopia.PrecioTotal;
+	  	  this.Reserva.Ninos= this.ReservaCopia.Ninos;	  	  
 	  	  this.editing = false;
 	  	},
 	  	cleanForm: function() {	  	  
@@ -321,7 +358,7 @@
 	  	  this.Reserva.Habitaciones = '';
 	  	  this.Reserva.Adultos = '';
 	  	  this.Reserva.Ninos = '';
-	  	  this.Reserva.PrecioTotal = '';
+
 	  	  this.Reserva.Id = '';
 	  	},
 
@@ -341,8 +378,7 @@
 	  	        Hoteles: this.Reserva.Hoteles,
 	  	        Habitaciones: this.Reserva.Habitaciones,
 	  	        Adultos: this.Reserva.Adultos,
-	  	        Ninos: this.Reserva.Ninos,
-	  	        PrecioTotal: this.Reserva.PrecioTotal
+	  	        Ninos: this.Reserva.Ninos,	        
 	  	      }
 
 	  	    })
@@ -374,8 +410,7 @@
 	  	        Hoteles: this.Reserva.Hoteles,
 	  	        Habitaciones: this.Reserva.Habitaciones,
 	  	        Adultos: this.Reserva.Adultos,
-	  	        Ninos: this.Reserva.Ninos,
-	  	        PrecioTotal: this.Reserva.PrecioTotal
+	  	        Ninos: this.Reserva.Ninos,	  	      
 	  	      }
 	  	    })
 	  	    .done(function(data) {
@@ -442,8 +477,7 @@
               Hoteles:'',
               Habitaciones:'',
               Adultos:'',
-              Ninos:'',
-              PrecioTotal:''
+              Ninos:'',              
             },
             ReservaCopia: {
               Id: '',
@@ -457,7 +491,7 @@
               Habitaciones:'',
               Adultos:'',
               Ninos:'',
-              PrecioTotal:''
+
             }
           }
         },
@@ -484,8 +518,6 @@ input[type="radio"] {
   display: none;
 }
 
-
-
 p {
   text-align: center;
 }
@@ -502,12 +534,46 @@ p {
 
 }
 
-
 :hover ~ .star {
   color: orange;
 }
 
 input[type="radio"]:checked ~ label {
   color: orange;
+}
+
+.campos{
+	padding:8px;
+	display: block;
+
+}
+
+.ul-Usuario{
+	list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;    
+}
+
+.usuario{
+   float : left;
+  
+   width: 50%;
+}
+.ul-personas{
+	list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;    
+}
+
+.personas{
+   float : left;
+   padding: 10px;
+   width: 33%;
+}
+
+select{
+	border-radius: 10px;
 }
 </style>

@@ -1,14 +1,15 @@
 <template>
   <div id="app">
-    <master-chooser></master-chooser>
-    <h1>{{msg}}</h1> 
 
-    <div v-show="opcion == 'hoteles'">
-      
-      <h2><strong>{{ title.Hoteles }}</strong></h2>
+    <div >
+    <master-chooser></master-chooser>    
+    </div>
+    <br>
+    <div v-show="opcion == 'hoteles'">   
+
       <maestro-hoteles ></maestro-hoteles>    
       
-      <div  id="myModal" class="modal w3-container" style="display:inline-block;" v-show="showHotelesDet">
+      <div  id="myModal" class="modal w3-container"  v-show="showHotelesDet">
         <div class="modal-content  w3-animate-top ">
           
           <span class="close" @click="showHotelesDet = false">&times;</span>
@@ -19,10 +20,15 @@
 
     </div>
 
-    <div v-show="opcion == 'reservas'">
-      <h2><strong>{{ title.Reservas }}</strong></h2>
+    <div v-show="opcion == 'reservas'">    
       <maestro-reservas ></maestro-reservas>
-      <detalle-reservas v-show="showReservasDet" ></detalle-reservas>
+
+      <div  id="myModal" class="modal w3-container" style="display:inline-block;" v-show="showReservasDet">
+        <div class="modal-reservas-content  w3-animate-top ">
+          <span class="close" @click="showReservasDet = false">&times;</span>
+          <detalle-reservas v-show="showReservasDet" ></detalle-reservas>
+        </div>
+      </div>
     </div>
     
     <infomessage style="clear:both"></infomessage>
@@ -59,7 +65,7 @@ export default {
 
       },
 
-      msg: 'Welcome to Your Vue.js App',
+      msg: 'Reserva de Hoteles App',
       opcion:"hoteles",
       //Datos para mostrar los detalles
       showHotelesDet: false,
@@ -82,14 +88,14 @@ export default {
 }
 </script>
 
-<style >
+<style lang="scss">
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  margin-top: 10px;
 }
 
 h1, h2 {
@@ -102,7 +108,7 @@ a {
   color: #42b983;
 }
 
-.modal {
+.modal  {
     display: none; /* Hidden by default */
     position: fixed; /* Stay in place */
     z-index: 1; /* Sit on top */
@@ -123,9 +129,18 @@ a {
     margin: auto;
     padding: 20px;
     border: 1px solid #888;
-    width: 80%;
+    width: 470px;
 
     
+}
+
+.modal-reservas-content {
+    
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 550px;
 }
 
 /* The Close Button */
@@ -142,4 +157,6 @@ a {
     text-decoration: none;
     cursor: pointer;
 }
+
+
 </style>

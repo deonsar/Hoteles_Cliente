@@ -1,14 +1,14 @@
 <template>
   <div>
-  
-    <button type="button" class="btn btn-default btn-lg" title="Hoteles" @click="chooseOption(options.Hoteles)">
-      <app-icon img="th-list"></app-icon> Hoteles
+    
+    <button class="btn btn-default btn-lg " title="Hoteles" @click="chooseOption(options.Hoteles)">
+      <app-icon img="th-list"></app-icon> Lista Hoteles
     </button>
 
-    <button type="button" class="btn btn-default btn-lg" title="Reservas" @click="chooseOption(options.Reservas)">
-     <app-icon img="th-list"></app-icon> Reservas
+    <button class="btn btn-default btn-lg" title="Reservas" @click="chooseOption(options.Reservas)">
+     <app-icon img="duplicate"></app-icon> Reservas Solicitadas
     </button>    
-  
+    
   </div>
 </template>
 
@@ -38,3 +38,4 @@ export default {
 }
 
 </script>
+

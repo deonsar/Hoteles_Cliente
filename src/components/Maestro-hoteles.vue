@@ -1,7 +1,11 @@
 <template>
-  <div style="min-width:300px; max-width:300px; display:inline-block; vertical-align:top">
+  <div style="min-width:450px; display:inline-block; vertical-align:top">
+
     <ul class="w3-ul w3-card-4">
-      <li><h2><strong>Hoteles</strong></h2></li>     
+      <li><h2><strong>Hoteles</strong></h2> </li>     
+     <!--  <li style="padding: none;">
+        <button class="btn btn-default btn-lg" style="border : none; width:100%">Agregar Hotel</button>
+      </li> -->
       <li style="overflow: hidden; text-overflow: ellipsis" class="w3-hover-blue" v-for="Hotel in Hoteles" @click="hotelSelected(Hotel.Id, mostrar)"> 
         <span class="glyphicon glyphicon-eye-open"></span>
         &nbsp;

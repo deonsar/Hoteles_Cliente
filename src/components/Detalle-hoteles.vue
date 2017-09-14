@@ -1,8 +1,9 @@
 <template>
 
-  <div class="w3-container w3-card-4" style="text-align: left; min-width:400px; display:inline-block; vertical-align:top">
+  <div class="w3-container" style="text-align: left; vertical-align:top">
+
     <div>
-      <h3 style="text-align: center; overflow: hidden;"><strong> Datos Hotel </strong></h3>
+      <h2 style="text-align: center; overflow: hidden;"><strong> Datos Hotel </strong></h2>     
 
       <label class="w3-text" for="nombre"> Nombre: </label>
       <input class="w3-input w3-border" style="background: white; overflow: hidden; text-overflow: ellipsis" type="text" 
@@ -27,7 +28,8 @@
       <label class="w3-text" for="direccion"> Precio: </label>
       <input class="w3-input w3-border" style="background: white; overflow: hidden; text-overflow: ellipsis" type="number" 
       :disabled="!editing && !addingNew" v-model="Hotel.PrecioBase">
-
+     
+      <br>
       <p class="clasificacion"  >
           <input id="radio1" type="radio" name="estrellas" :disabled="!editing && !addingNew" v-model="Hotel.Puntuacion" value="5" :checked="Hotel.Puntuacion">
           <label class="star" for="radio1">★</label>
@@ -44,17 +46,13 @@
           <input id="radio5" type="radio" name="estrellas" :disabled="!editing && !addingNew" v-model="Hotel.Puntuacion" value="1" :checked="Hotel.Puntuacion">
           <label class="star" for="radio5">★</label>
       </p>
-      <br>
-      
     </div>
 
-    <br>
-    
     <div>
       <template v-if="!addingNew">
         <div style="float: left">
           <button type="button" class="btn btn-default btn-sm" title="Nuevo" @click="editNew" :disabled="editing">
-            <app-icon img="plus"></app-icon>
+            <app-icon img="plus">  </app-icon> Agregar Hotel
           </button>
         </div>
       </template>
@@ -62,10 +60,10 @@
       <template v-else>
         <div style="float: left">
           <button type="button" class="btn btn-default btn-sm" title="Confirmar" @click="validateNew">
-            <app-icon img="ok"></app-icon>
+            <app-icon img="ok"  style="color: green" > </app-icon> Aceptar
           </button>
           <button type="button" class="btn btn-default btn-sm" title="Descartar" @click="discardNew">
-            <app-icon img="remove"></app-icon>
+            <app-icon img="remove"  style="color: red"> </app-icon> Cancelar
           </button>
         </div>
       </template>
@@ -73,10 +71,10 @@
       <template v-if="!editing">
         <div style="float: right">
           <button type="button" class="btn btn-default btn-sm" title="Editar" @click="validateIdUpdate" :disabled="addingNew">
-            <app-icon img="edit"></app-icon>
+            <app-icon img="edit"></app-icon> Editar Hotel
           </button>
           <button type="button" class="btn btn-default btn-sm" title="Eliminar" @click="validateIdDelete" :disabled="addingNew">
-            <app-icon img="trash"></app-icon>
+            <app-icon img="trash"></app-icon> Eliminar Hotel
           </button>
         </div>
       </template>
@@ -84,18 +82,15 @@
       <template v-else>
         <div style="float: right">
           <button type="button" class="btn btn-default btn-sm" title="Confirmar" @click="validateUpdate">
-            <app-icon img="ok"></app-icon>
+            <app-icon img="ok" style="color: green"></app-icon> Aceptar
           </button>
           <button type="button" class="btn btn-default btn-sm" title="Descartar" @click="discard">
-            <app-icon img="remove"></app-icon>
+            <app-icon img="remove" style="color: red"></app-icon> Cancelar
           </button>
         </div>
       </template>
     </div>
-
-    <div>
-      <p style="visibility: hidden">separador</p>
-    </div>
+    
     <br>
   </div>
 </template>
@@ -344,7 +339,6 @@ export default {
             return {
               editing: false,
               addingNew: false,              
-              complejidad: { Alta: 'Alta', Media: 'Media', Baja: 'Baja'},
               Hotel: {
                 Id: '',
                 Nombre: '',
@@ -393,7 +387,7 @@ p {
 }
 
 .star{
-  font-size: 30px;
+  font-size: 20px;
   color: grey;
 
 }
@@ -401,5 +395,7 @@ p {
 :hover ~ .star {
   color: orange;
 }
-
+input{
+  border-radius: 10px;
+}
 </style>
