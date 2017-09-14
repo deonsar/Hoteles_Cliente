@@ -9,11 +9,11 @@
 
       <maestro-hoteles ></maestro-hoteles>    
       
-      <div  id="myModal" class="modal w3-container"  v-show="showHotelesDet">
+      <div  id="myModal" class="modal w3-container" style="display:inline-block;" v-show="showHotelesDet">
         <div class="modal-content  w3-animate-top ">
           
           <span class="close" @click="showHotelesDet = false">&times;</span>
-          <detalle-hoteles></detalle-hoteles>
+          <detalle-hoteles ></detalle-hoteles>
 
         </div>
       </div>
@@ -25,8 +25,10 @@
 
       <div  id="myModal" class="modal w3-container" style="display:inline-block;" v-show="showReservasDet">
         <div class="modal-reservas-content  w3-animate-top ">
+
           <span class="close" @click="showReservasDet = false">&times;</span>
-          <detalle-reservas v-show="showReservasDet" ></detalle-reservas>
+          <detalle-reservas></detalle-reservas>
+
         </div>
       </div>
     </div>

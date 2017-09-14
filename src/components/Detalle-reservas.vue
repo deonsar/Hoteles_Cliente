@@ -1,6 +1,6 @@
 <template>
 
-	<div style="min-width:500px; text-align: left;  display:inline-block; vertical-align:top">
+	<div style="min-width:450px; text-align: left;  display:inline-block; vertical-align:top">
 		<div>
 		  <h2 style="overflow: hidden; text-align:center"><strong> Gestion Reserva </strong></h2>
 
@@ -53,14 +53,14 @@
 		  
 			<li class="usuario">
 
-			  <label class="w3-text" for="fechaSalida"> FechaSalida </label>
+			  <label class="w3-text" for="fechaSalida"> Fecha Salida </label>
 			  <br>
 		      <input class="w3-input w3-border" style="width:95%; background: white; overflow: hidden; text-overflow: ellipsis" type="date" :disabled="!editing && !addingNew" v-model="Reserva.FechaSalida">		  
 		  
 		  	</li>
 
 		  	<li class="usuario">
-			  <label class="w3-text" for="fecha"> FechaLlegada </label>
+			  <label class="w3-text" for="fecha"> Fecha Llegada </label>
 			  <input class="w3-input w3-border" style="width:95%; background: white; overflow: hidden; text-overflow: ellipsis" type="date" :disabled="!editing && !addingNew" v-model="Reserva.FechaLlegada">
 		  	</li>
 		  </ul>		  
@@ -82,9 +82,8 @@
 
 		  <li class="personas">
 			  <label class="w3-text" for="adultos" style="background: white"> Adultos </label>
-			  <select class="w3-select w3-border" name="adultos" style="overflow: hidden; text-overflow: ellipsis" value="Adultos" :disabled="!editing && !addingNew" v-model="Reserva.Adultos">
-			  	<option value="0" selected="selected">0</option>
-			    <option value="1">1</option>
+			  <select class="w3-select w3-border" name="adultos" style="overflow: hidden; text-overflow: ellipsis" value="Adultos" :disabled="!editing && !addingNew" v-model="Reserva.Adultos">			
+			    <option value="1" selected="selected">1</option>
 			    <option value="2">2</option>
 			    <option value="3">3</option>
 			    <option value="4">4</option>
@@ -116,7 +115,7 @@
 			<template v-if="!addingNew">
 			  <div style="float: left">
 			    <button type="button" class="btn btn-default btn-sm" title="Nuevo" @click="editNew" :disabled="editing">
-			      <app-icon img="plus"> </app-icon> Agregar Reserva 
+			      <app-icon img="plus"> </app-icon> Nueva Reserva 
 			    </button>
 			  </div>
 			</template>

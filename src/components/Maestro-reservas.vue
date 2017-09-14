@@ -4,10 +4,28 @@
     <ul class="w3-ul w3-card-4">
       <li><h2><strong>Reservas</strong></h2></li>   
       
-      <li style="overflow: hidden; text-overflow: ellipsis" class="w3-hover-blue" v-for="Reserva in Reservas" @click="reservaSelected(Reserva.Id)"> 
-        <span class="glyphicon glyphicon-eye-open"></span>
+      <li style="text-align: left; overflow: hidden; text-overflow: ellipsis" class="w3-hover-blue" v-for="Reserva in Reservas" @click="reservaSelected(Reserva.Id, mostrar)"> 
+        
+        <div style="font-size: 20px;">
+        <span class="glyphicon glyphicon-user" ></span>
         &nbsp;
-        {{Reserva.Nombre}}</li>
+        {{Reserva.Nombre}} {{Reserva.Apellido}}
+
+         <div style="float: right; font-size: 10px;">
+            Salida: {{Reserva.FechaSalida}} - Llegada: {{Reserva.FechaLlegada}}
+          </div>
+        </div>        
+
+        <div style="float: right;">
+        <span class="glyphicon glyphicon-earphone"></span>
+        {{Reserva.Telefono}}
+        </div>
+
+        <div>
+        <span class="glyphicon glyphicon-home"></span>
+        {{Reserva.Hoteles}}
+        </div>
+        </li>
     </ul>
   </div>
 </template>
@@ -25,12 +43,7 @@ export default {
     'app-icon' : AppIcon
   },
 
-  data: function () {
-    return {
-      Reservas: [],
-      mostrar: true
-    }
-  },
+  
 
   methods: {
   	loadList: function(){
@@ -49,7 +62,7 @@ export default {
         });
     },
 
-    reservaSelected: function(id){
+    reservaSelected: function(id, mostrar){
     	EventBus.$emit('reservaSelected', id);
 
       if(this.mostrar===true){        
@@ -64,8 +77,15 @@ export default {
 
   },
 
+  data: function () {
+    return {
+      Reservas: [],
+      mostrar: true
+    }
+  },
+
   mounted: function() {
-      this.loadList();
+    this.loadList();
 
 	  EventBus.$on('updateListReserva', function() {
 	    this.loadList();

@@ -52,7 +52,7 @@
       <template v-if="!addingNew">
         <div style="float: left">
           <button type="button" class="btn btn-default btn-sm" title="Nuevo" @click="editNew" :disabled="editing">
-            <app-icon img="plus">  </app-icon> Agregar Hotel
+            <app-icon img="plus">  </app-icon> Nuevo Hotel
           </button>
         </div>
       </template>
